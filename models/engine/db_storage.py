@@ -81,8 +81,8 @@ class DBStorage:
         """
         if id and isinstance(id, str):
             if cls and (cls in classes.keys() or cls in classes.values()):
-                all_objs = self.all(cls)
-                for key, value in all_objs.items():
+                all_objects = self.all(cls)
+                for key, value in all_objects.items():
                     if id == value.id and key.split('.')[1] == id:
                         return value
         return
