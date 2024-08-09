@@ -76,14 +76,14 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         new_dict = storage.all()
         self.assertEqual(type(new_dict), dict)
-        self.assertIs(new_dict, storage._FileStorage__objects)
+        self.assertIs(new_dict, storage._FileStorageObjects)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_new(self):
         """test that new adds an object to the FileStorage.__objects attr"""
         storage = FileStorage()
-        save = FileStorage._FileStorage__objects
-        FileStorage._FileStorage__objects = {}
+        save = FileStorage._FileStorageObjects
+        FileStorage._FileStorageObjects = {}
         test_dict = {}
         for key, value in classes.items():
             with self.subTest(key=key, value=value):
@@ -91,8 +91,8 @@ class TestFileStorage(unittest.TestCase):
                 instance_key = instance.__class__.__name__ + "." + instance.id
                 storage.new(instance)
                 test_dict[instance_key] = instance
-                self.assertEqual(test_dict, storage._FileStorage__objects)
-        FileStorage._FileStorage__objects = save
+                self.assertEqual(test_dict, storage._FileStorageObjects)
+        FileStorage._FileStorageObjects = save
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_save(self):
@@ -103,10 +103,10 @@ class TestFileStorage(unittest.TestCase):
             instance = value()
             instance_key = instance.__class__.__name__ + "." + instance.id
             new_dict[instance_key] = instance
-        save = FileStorage._FileStorage__objects
-        FileStorage._FileStorage__objects = new_dict
+        save = FileStorage._FileStorageObjects
+        FileStorage._FileStorageObjects = new_dict
         storage.save()
-        FileStorage._FileStorage__objects = save
+        FileStorage._FileStorageObjects = save
         for key, value in new_dict.items():
             new_dict[key] = value.to_dict()
         string = json.dumps(new_dict)
@@ -117,13 +117,13 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_get(self):
         """Test that retrieve objects from file.json"""
-        state = State(name='Nairobi')
+        state = State(name='CasaBlanca')
         models.storage.new(state)
         models.storage.save()
 
-        state_obj = models.storage.get(State, state.id)
+        state_object = models.storage.get(State, state.id)
 
-        self.assertEqual(state, state_obj)
+        self.assertEqual(state, state_object)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count(self):
@@ -133,7 +133,7 @@ class TestFileStorage(unittest.TestCase):
 
         self.assertEqual(objs_from_all, objs_from_count)
 
-        states_from_all = len(models.storage.all(State))
-        states_from_count = models.storage.count(State)
+        all_state = len(models.storage.all(State))
+        all_state_count = models.storage.count(State)
 
-        self.assertEqual(states_from_all, states_from_count)
+        self.assertEqual(all_state, all_state_count)

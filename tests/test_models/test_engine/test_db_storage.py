@@ -24,24 +24,25 @@ classes = {"Amenity": Amenity, "City": City, "Place": Place,
 
 
 class TestDBStorageDocs(unittest.TestCase):
-    """Tests to check the documentation and style of DBStorage class"""
+    """check the documentation and style of DBStorage class"""
     @classmethod
     def setUpClass(cls):
         """Set up for the doc tests"""
         cls.dbs_f = inspect.getmembers(DBStorage, inspect.isfunction)
 
     def test_pep8_conformance_db_storage(self):
-        """Test that models/engine/db_storage.py conforms to PEP8."""
+        """Test db_storage.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/engine/db_storage.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
     def test_pep8_conformance_test_db_storage(self):
-        """Test tests/test_models/test_db_storage.py conforms to PEP8."""
+        """Test test_db_storage.py conforms to PEP8."""
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['tests/test_models/test_engine/\
 test_db_storage.py'])
+        
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
@@ -87,29 +88,29 @@ class TestFileStorage(unittest.TestCase):
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
-        """Test that save properly saves objects to file.json"""
+        """save properly saves objects to file.json"""
         pass
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_get(self):
-        """Test that retrieve objects from file.json"""
-        state = State(name='Nairobi')
+        """Test retrieve objects from file.json"""
+        state = State(name='CasaBlanca')
         models.storage.new(state)
         models.storage.save()
 
-        state_obj = models.storage.get(State, state.id)
+        stateObj = models.storage.get(State, state.id)
 
-        self.assertEqual(state, state_obj)
+        self.assertEqual(state, stateObj)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count(self):
         """Test that counts objects from file.json"""
-        objs_from_all = len(models.storage.all())
-        objs_from_count = models.storage.count()
+        all_obj = len(models.storage.all())
+        all_obj_count = models.storage.count()
 
-        self.assertEqual(objs_from_all, objs_from_count)
+        self.assertEqual(all_obj, all-all_obj_count)
 
-        states_from_all = len(models.storage.all(State))
-        states_from_count = models.storage.count(State)
+        all_states = len(models.storage.all(State))
+        all_states_count = models.storage.count(State)
 
-        self.assertEqual(states_from_all, states_from_count)
+        self.assertEqual(all_states, all_states_count)

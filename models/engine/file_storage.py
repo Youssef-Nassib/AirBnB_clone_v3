@@ -71,7 +71,7 @@ class FileStorage:
 
     def get(self, cls, id):
         """
-        Retrieves object of a class or all objects of that class
+        Retrieves object of a class all objects of that class
         """
         if id and isinstance(id, str):
             if cls and (cls in classes.keys() or cls in classes.values()):
@@ -83,7 +83,7 @@ class FileStorage:
 
     def count(self, cls=None):
         """
-        Returns the occurrence of a class or all classes
+        Returns the occurrence of a class  all classes
         """
         occurrence = 0
         if cls:
