@@ -1,5 +1,5 @@
-#!/usr/bin/python3
-"""This module defines the views for the City object in the API. It handles all default RESTful API actions related to City objects."""
+#!/usr/bin/python
+"""REST APi actions related to City objects."""
 
 from flask import jsonify, abort, request
 from api.v1.views import app_views
@@ -9,7 +9,7 @@ from models.state import State
 
 
 @app_views.route('/states/<state_id>/cities',
-                methods=['GET'], strict_slashes=False)
+                 methods=['GET'], strict_slashes=False)
 def get_Cities(state_id):
     """Retrieves a list of all City objects of a State"""
     state = storage.get(State, state_id)
@@ -40,7 +40,7 @@ def delete_city(city_id):
 
 
 @app_views.route('/states/<state_id>/cities',
-                methods=['POST'], strict_slashes=False)
+                 methods=['POST'], strict_slashes=False)
 def Create_city(state_id):
     """Creates a City"""
     state = storage.get(State, state_id)
