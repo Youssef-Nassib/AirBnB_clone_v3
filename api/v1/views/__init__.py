@@ -12,4 +12,5 @@ from api.v1.views.states import *
 """documentation for cities"""
 from api.v1.views.cities import *
 from api.v1.views.amenities import *
+from api.v1.views.users import *
 
