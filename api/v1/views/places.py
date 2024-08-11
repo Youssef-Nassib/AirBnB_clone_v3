@@ -116,13 +116,13 @@ def search_places():
     cities = req_json.get('cities', [])
     amenities = req_json.get('amenities', [])
 
-    # If the JSON body is empty or all keys are empty, retrieve all Place objects
+
     if not states and not cities and not amenities:
         places = storage.all(Place).values()
     else:
         places = set()
 
-        # Handle states and cities filtering
+
         if states:
             for state_id in states:
                 state = storage.get(State, state_id)
@@ -136,10 +136,10 @@ def search_places():
                 if city:
                     places.update(city.places)
 
-        # Convert places to list for further filtering with amenities
+
         places = list(places)
 
-        # Handle amenities filtering
+
         if amenities:
             filtered_places = []
             for place in places:
@@ -147,6 +147,6 @@ def search_places():
                     filtered_places.append(place)
             places = filtered_places
 
-    # Convert the Place objects to dictionaries and return them
+
     places = [place.to_dict() for place in places]
     return jsonify(places)
