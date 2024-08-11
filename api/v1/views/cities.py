@@ -1,4 +1,4 @@
-#!/bin/usr/python3
+#!/usr/bin/python3
 """city object that handeles all default restfull api"""
 
 from flask import jsonify, abort, request
