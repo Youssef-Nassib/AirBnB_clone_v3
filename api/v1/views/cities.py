@@ -11,7 +11,7 @@ from models.state import State
 
 
 @app_views.route('/states/<state_id>/cities',
-                 methods=['GET'], strict_slashes=False)
+                methods=['GET'], strict_slashes=False)
 def get_Cities(state_id):
     """
     Retrieves a list of all City objects of a State
@@ -48,7 +48,7 @@ def delete_city(city_id):
 
 
 @app_views.route('/states/<state_id>/cities',
-                 methods=['POST'], strict_slashes=False)
+                methods=['POST'], strict_slashes=False)
 def Create_city(state_id):
     """
     Creates City
