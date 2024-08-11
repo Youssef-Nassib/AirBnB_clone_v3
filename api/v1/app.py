@@ -14,6 +14,7 @@ app.register_blueprint(app_views)
 
 corps = CORS(app, origins="0.0.0.0")
 
+
 @app.teardown_appcontext
 def appTeardown(error):
     """ Close the Storage """
