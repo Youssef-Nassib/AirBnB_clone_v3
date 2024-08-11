@@ -3,18 +3,23 @@
 This module defines the views for the City object in the API.
 It handles all default RESTful API actions related to City objects.
 """
+
 from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
 from models.city import City
 from models.state import State
 
-
-@app_views.route('/states/<state_id>/cities',
-                methods=['GET'], strict_slashes=False)
-def get_Cities(state_id):
+@app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
+def get_cities(state_id):
     """
-    Retrieves a list of all City objects of a State
+    Retrieves a list of all City objects associated with a given State.
+
+    Args:
+        state_id (str): The ID of the State to retrieve cities for.
+
+    Returns:
+        Response: A JSON list of City objects.
     """
     state = storage.get(State, state_id)
     if not state:
@@ -22,22 +27,32 @@ def get_Cities(state_id):
     cities = [city.to_dict() for city in state.cities]
     return jsonify(cities)
 
-
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
-def get_City(city_id):
+def get_city(city_id):
     """
-    get a City object
+    Retrieves a City object by its ID.
+
+    Args:
+        city_id (str): The ID of the City to retrieve.
+
+    Returns:
+        Response: A JSON representation of the City object.
     """
     city = storage.get(City, city_id)
     if not city:
         abort(404)
     return jsonify(city.to_dict())
 
-
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def delete_city(city_id):
     """
-    Deletes the City object
+    Deletes a City object by its ID.
+
+    Args:
+        city_id (str): The ID of the City to delete.
+
+    Returns:
+        Response: An empty JSON response with HTTP status code 200.
     """
     city = storage.get(City, city_id)
     if not city:
@@ -46,12 +61,16 @@ def delete_city(city_id):
     storage.save()
     return jsonify({}), 200
 
-
-@app_views.route('/states/<state_id>/cities',
-                methods=['POST'], strict_slashes=False)
-def Create_city(state_id):
+@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+def create_city(state_id):
     """
-    Creates a City
+    Creates a new City object within a given State.
+
+    Args:
+        state_id (str): The ID of the State where the City will be created.
+
+    Returns:
+        Response: A JSON representation of the newly created City object with HTTP status code 201.
     """
     state = storage.get(State, state_id)
     if not state:
@@ -67,11 +86,16 @@ def Create_city(state_id):
     storage.save()
     return jsonify(new_city.to_dict()), 201
 
-
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     """
-    Updates the City object
+    Updates an existing City object by its ID.
+
+    Args:
+        city_id (str): The ID of the City to update.
+
+    Returns:
+        Response: A JSON representation of the updated City object with HTTP status code 200.
     """
     city = storage.get(City, city_id)
     if not city:
