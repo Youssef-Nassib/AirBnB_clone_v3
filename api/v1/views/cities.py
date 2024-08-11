@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """city object that handeles all default restfull api"""
-
 from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
