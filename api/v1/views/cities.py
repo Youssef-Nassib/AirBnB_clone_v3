@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""city object that handeles all default restfull api"""
+"""
+This module defines the views for the City object in the API.
+It handles all default RESTful API actions related to City objects.
+"""
 from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
