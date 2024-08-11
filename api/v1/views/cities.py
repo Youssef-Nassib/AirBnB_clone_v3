@@ -51,7 +51,7 @@ def delete_city(city_id):
                 methods=['POST'], strict_slashes=False)
 def Create_city(state_id):
     """
-    Creates City
+    Creates a City
     """
     state = storage.get(State, state_id)
     if not state:
@@ -71,7 +71,7 @@ def Create_city(state_id):
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     """
-    Updates thCity object
+    Updates the City object
     """
     city = storage.get(City, city_id)
     if not city:
