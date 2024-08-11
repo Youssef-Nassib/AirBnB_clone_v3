@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """REST APi actions related to City objects."""
 
 from flask import jsonify, abort, request
